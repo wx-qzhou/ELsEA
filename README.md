@@ -1,3 +1,4 @@
+# Running
 conda activate qzhou_LargerEA_py310
 
 --gres=
@@ -52,7 +53,7 @@ python calculate_acc.py --data_name dbp15k --kgids fr,en
 python calculate_acc.py --data_name dwy100k --kgids dbp,yg
 python calculate_acc.py --data_name 1m --kgids en,de
 
-Acknowledgement
+# Acknowledgement
 We used the source codes:
 1) RREA: https://github.com/MaoXinn/RREA;
 2) GCN-Align: https://github.com/1049451037/GCN-Align;
