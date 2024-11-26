@@ -35,7 +35,7 @@ python Small_DivEA_run_dbp15k.py --kgids  --ea_model rrea --eval_way csls --subt
 cd ..
 python Get_results.py --data_name dbp15k --kgids fr,en
 
-# unsupervised
+# Unsupervised
 [
     dbp15k:
     ja,en fr,en zh,en
