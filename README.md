@@ -44,6 +44,7 @@ python Get_results.py --data_name dbp15k --kgids fr,en
     1m: 
     en,de en,fr
 ]
+
 python run_prepare_data.py --data_name dbp15k --kgids fr,en
 python run_prepare_data.py --data_name dwy100k --kgids dbp,yg
 python run_prepare_data.py --data_name 1m --kgids en,de --threshold 40000
