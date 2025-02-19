@@ -16,6 +16,10 @@ cd ../DivEA
 bash run_prepare_data.sh
 ```
 
+Next, download the pre-trained models into ./DivEA/Unsuper/TranslatetoEN from the repository:
+[Helsinki-NLP](https://huggingface.co/Helsinki-NLP)
+
+
 # Parameters Explanation
 
 ## `--ea_model` EA Approach Options
