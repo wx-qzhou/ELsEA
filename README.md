@@ -3,7 +3,9 @@ Implementation of the study proposed in the paper <a href="https://ieeexplore.ie
 
 # Environment Setup and Data Preparation
 
-First, activate the specified Conda environment, for example:
+First, set up the specified Conda environment and install the required dependencies from the 'Install_requirements' file.
+
+Then, activate the specified Conda environment, for example:
 
 ```bash
 conda activate qzhou_LargerEA_py310
@@ -16,8 +18,7 @@ cd ../DivEA
 bash run_prepare_data.sh
 ```
 
-Next, download the pre-trained models into ./DivEA/Unsuper/TranslatetoEN from the repository:
-[Helsinki-NLP](https://huggingface.co/Helsinki-NLP)
+Finally, download the pre-trained models from the [Helsinki-NLP](https://huggingface.co/Helsinki-NLP) repository on Hugging Face into the directory ./DivEA/Unsuper/TranslatetoEN.
 
 
 # Parameters Explanation
