@@ -1,69 +1,156 @@
+# ELsEA
+Implementation of the study proposed in the paper <a href="https://ieeexplore.ieee.org/">Enhancing Large-scale Entity Alignment with Critical Structure and High-quality Context</a>
+
+# Environment Setup and Data Preparation
+
+First, activate the specified Conda environment, for example:
+
+```bash
 conda activate qzhou_LargerEA_py310
+```
 
---gres=
-gpu:TeslaV100-SXM2-32GB:1 
-gpu:TeslaV100S-PCIE-32GB:1
-gpu:NVIDIAGeForceRTX2080Ti:1 
-gpu:NVIDIAA100-PCIE-40GB:1 
+Then, go to the `DivEA` directory and run the data preparation script:
 
-srun -N 1 -t 4320 -n 10 -c 1 --gres=gpu:TeslaV100-SXM2-32GB:2 --mem=600G -p batch --pty /bin/bash
-srun -N 1 -t 4320 -n 6 -c 1 --gres=gpu:TeslaV100S-PCIE-32GB:1 --mem=250G -p batch --pty /bin/bash
-srun -N 1 -t 4320 -n 6 -c 1 --gres=gpu:TeslaV100-SXM2-32GB:1 --mem=250G -p batch --pty /bin/bash
-
+```bash
 cd ../DivEA
 bash run_prepare_data.sh
+```
 
---ea_model 
-rrea dualamn gcn-align 
+# Parameters Explanation
 
---eval_way 
-csls cosine sinkhorn
+## `--ea_model` EA Approach Options
 
---subtask_size
-[
-gcn-align:
-['fr']=9594 ['ja']=10323 ['zh']=9421 ['wd']=28693 ['yg']=29521
-['1m']=30874
-rrea:
-['fr']=9594 ['ja']=10323 ['zh']=9421 ['wd']=28693 ['yg']=29521
-['1m']=28874
-dualamn:
-['fr']=9594 ['ja']=10323 ['zh']=9421 ['wd']=28693 ['yg']=29521
-['1m']=28874
-]
+Available EA approaches:
 
---kgids 
-en,de en,fr
-python Large_DivEA_run_1m.py --kgids  --ea_model rrea --eval_way csls
+- rrea
+- dualamn
+- gcn-align
+
+## `--eval_way`  Similarity Measures
+
+Available similarity measures:
+
+- csls
+- cosine
+- sinkhorn
+
+## `--subtask_size` Subtask Sizes
+
+Set the subtask size based on different models and language pairs:
+
+- **gcn-align**:
+  - `fr`: 9594
+  - `ja`: 10323
+  - `zh`: 9421
+  - `wd`: 28693
+  - `yg`: 29521
+  - `1m`: 30874
+- **rrea**:
+  - `fr`: 9594
+  - `ja`: 10323
+  - `zh`: 9421
+  - `wd`: 28693
+  - `yg`: 29521
+  - `1m`: 28874
+- **dualamn**:
+  - `fr`: 9594
+  - `ja`: 10323
+  - `zh`: 9421
+  - `wd`: 28693
+  - `yg`: 29521
+  - `1m`: 28874
+
+## `--kgids` Knowledge Graph IDs
+
+Different knowledge graph ID configurations:
+
+- `en,de`
+- `en,fr`
+
+## Python Commands
+
+Run different Python scripts for specific tasks:
+
+1. **rrea model**, using the `csls` evaluation method:
+
+```bash
+python Large_DivEA_run_1m.py --kgids --ea_model rrea --eval_way csls
+```
+
+2. **rrea model**, using the `csls` evaluation method, specifying subtask size and `ctx_g1_percent`:
+
+```bash
 python Large_DivEA_run_1m.py --kgids en,de --ea_model rrea --eval_way csls --ctx_g1_percent 0.4 --subtask_size 28874
-python Large_DivEA_run_1m.py --kgids en,fr --ea_model rrea --eval_way csls --ctx_g1_percent 0.4 --subtask_size 28874 --max_iteration 1
+```
 
---kgids 
-dbp,yg
+3. **rrea model**, using the `csls` evaluation method, specifying `max_iteration`:
+
+```bash
+python Large_DivEA_run_1m.py --kgids en,fr --ea_model rrea --eval_way csls --ctx_g1_percent 0.4 --subtask_size 28874 --max_iteration 5
+```
+
+4. **rrea model**, for `dbp,yg` knowledge graph pair, using the `csls` evaluation method:
+
+```bash
 python Medium_DivEA_run_dwy100k.py --kgids dbp,yg --ea_model rrea --eval_way csls --subtask_size 29521
+```
 
---kgids 
-ja,en fr,en zh,en
-python Small_DivEA_run_dbp15k.py --kgids  --ea_model rrea --eval_way csls --subtask_size 
+5. **rrea model**, for `ja,en`, `fr,en`, and `zh,en` knowledge graph pairs:
 
-cd ..
-python Get_results.py --data_name dbp15k --kgids fr,en
+```bash
+python Small_DivEA_run_dbp15k.py --kgids --ea_model rrea --eval_way csls --subtask_size
+```
 
-# unsupervised
-[
-    dbp15k:
-    ja,en fr,en zh,en
-    --threshold 250000
-    dwy100k:
-    dbp,yg
-    1m: 
-    en,de en,fr
-]
+
+
+# Unsupervised Tasks
+
+## Data Preparation
+
+Run the data preparation script for different datasets:
+
+1. **dbp15k** dataset, evaluating `fr,en` knowledge graph:
+
+```bash
 python run_prepare_data.py --data_name dbp15k --kgids fr,en
-python run_prepare_data.py --data_name dwy100k --kgids dbp,yg
-python run_prepare_data.py --data_name 1m --kgids en,de --threshold 40000
-python run_prepare_data.py --data_name 1m --kgids en,fr --threshold 40000
+```
 
+2. **dwy100k** dataset, evaluating `dbp,yg` knowledge graph:
+
+```bash
+python run_prepare_data.py --data_name dwy100k --kgids dbp,yg
+```
+
+3. **1m** dataset, evaluating `en,de` knowledge graph, setting threshold:
+
+```bash
+python run_prepare_data.py --data_name 1m --kgids en,de --threshold 40000
+```
+
+4. **1m** dataset, evaluating `en,fr` knowledge graph, setting threshold:
+
+```bash
+python run_prepare_data.py --data_name 1m --kgids en,fr --threshold 40000
+```
+
+## Accuracy Calculation
+
+Use different datasets and knowledge graph pairs to calculate accuracy:
+
+1. **dbp15k** dataset, evaluating `fr,en` knowledge graph:
+
+```bash
 python calculate_acc.py --data_name dbp15k --kgids fr,en
+```
+
+2. **dwy100k** dataset, evaluating `dbp,yg` knowledge graph:
+
+```bash
 python calculate_acc.py --data_name dwy100k --kgids dbp,yg
+```
+
+3. **1m** dataset, evaluating `en,de` knowledge graph:
+
+```bash
 python calculate_acc.py --data_name 1m --kgids en,de
+```
