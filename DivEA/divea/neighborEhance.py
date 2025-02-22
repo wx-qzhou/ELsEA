@@ -11,6 +11,7 @@ import multiprocessing
 import math
 import time
 
+"the following is the details of Neighbor Enrichment (NE)"
 class Neighbor_Agg_Layer(nn.Module):
     def __init__(self, edge_weights, node_weights, ent_num, kg_entities, kg_triples):
         super(Neighbor_Agg_Layer, self).__init__()
@@ -103,6 +104,7 @@ class Neighbor_Ehance():
 
         return dict(zip(all_candidates, score.cpu().numpy().tolist())) # 
 
+# split data into small batches for the preparations of Multi-process data processing
 def Neighbor_Ehance_generate_split_data(all_candidates, unmatch_entities, h_o, x):
     with torch.no_grad():
         all_candidates1 = h_o[all_candidates].unsqueeze(1) # (M, 1)
@@ -205,6 +207,7 @@ def neighbor_nomulpress_multi_proc(edge_weights, node_weights, new_entities, new
     
     return new_candi2benefit_map
 
+# Multi-process data processing
 class DataDealProcess(multiprocessing.Process):
     def __init__(self, in_queue=None, out_queue=None):
         super().__init__()

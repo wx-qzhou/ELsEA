@@ -378,6 +378,7 @@ def has_complex_repeats(text):
     else:
         return False
 
+# clear the error english
 def error2eng(args, id_=0):
     kg_ent_id2uri_map = load_json(join(args.data_dir, args.data_name, "_".join(kgids), kgids[id_] + "_entity_txt.json"))
     ent_id2uri = dict(read_tab_lines(os.path.join(args.data_dir, args.data_name, "_".join(kgids), kgids[id_] + "_entity_id2uri.txt")))
@@ -402,6 +403,7 @@ def error2eng(args, id_=0):
     except:
         pass
 
+# Is it an abbreviation
 def is_abbreviation(phrase):
     # 移除标点符号
     phrase_cleaned = re.sub(r'[^\w\s]', '', phrase.split("/")[-1])
@@ -410,6 +412,7 @@ def is_abbreviation(phrase):
         return True
     return False
 
+# transform each abbreviation into the raw description
 def abbreviation2eng(args):
     kg1_ent_id2uri_map = load_json(join(args.data_dir, args.data_name, "_".join(kgids), kgids[0] + "_entity_txt.json"))
     kg2_ent_id2uri_map = load_json(join(args.data_dir, args.data_name, "_".join(kgids), kgids[1] + "_entity_txt.json"))

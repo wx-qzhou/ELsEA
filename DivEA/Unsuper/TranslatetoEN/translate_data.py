@@ -33,11 +33,13 @@ def TraditionaltoSimplified(ent_id2uri):
         ent_id2uri[idx][1] = converter.convert(ent_id2uri[idx][1])
     return ent_id2uri
 
+# Remove the repeated words
 def advanced_remove_repeats(text):
     pattern = re.compile(r'(\w+_\W+)\1+')
     cleaned_text = pattern.sub(r'\1', text)
     return cleaned_text
 
+# translate other languages into English
 def translate_item(item):
     idx, text = item
     if int(idx) % 10000 == 0:
@@ -48,6 +50,7 @@ def translate_item(item):
     translated_text = http + "/" + advanced_remove_repeats(tokenizer.decode(translated[0], skip_special_tokens=True).replace(" ", "_"))
     return idx, translated_text
 
+# the main function of Helsinki_NLP
 def Helsinki_NLP(text_list=[[0, "こんにちは"]], model_name='opus-mt-en-zh', eeflag=True):
     print(model_name)
     print(eeflag)

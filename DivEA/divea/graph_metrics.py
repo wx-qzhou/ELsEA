@@ -4,6 +4,7 @@ import numpy as np
 import networkx as nx
 from collections import Counter
 
+# the information of adjs
 def adj_info(KG, r2f, r2if):
     "Based on common relations of entity"
     def get_e_adjr1(etriples, r2f, r2if):
@@ -50,6 +51,7 @@ def adj_info(KG, r2f, r2if):
         ent_adj_temp[k] = np.mean(ent_adj_temp[k])
     return ent_adj_temp
 
+# to compute the weights of entities
 def in_degree(graph, kg1_entity_dict, kg2_entity_dict):
     ent_in_degree = {}
     for node in graph.nodes():
@@ -65,6 +67,7 @@ def in_degree(graph, kg1_entity_dict, kg2_entity_dict):
             ent_in_degree2.update({kg2_entity_dict[k] : ent_in_degree[k]})
     return ent_in_degree1, ent_in_degree2
 
+# to compute the weights of entities
 def out_degree(graph, kg1_entity_dict, kg2_entity_dict):
     ent_out_degree = {}
     for node in graph.nodes():
@@ -167,7 +170,8 @@ def graph_metrics_main(data, flags=["in_degree", "out_degree"]):
         file.write(json.dumps(KGs_node))
 
     # exit()
-    
+
+# to compute the weights of relations    
 def ht_func(KG):
     head = {}
     tail = {}

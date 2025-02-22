@@ -113,6 +113,7 @@ class CtxBuilderV1(ContextBuilder):
         with open(os.path.join(part_data_dir, "kg_partition.json"), "w+") as file:
             file.write(json.dumps(obj))
 
+    # generate neighborhood candidates 
     def _filter_g1(self, triples, anchors, unmatch_entities, max_hop_k, part_idx):
         with open(os.path.join(self.data_dir, f"partition_{part_idx}/tmp_part.json")) as file:
             graph_partition_entities = json.loads(file.read())
@@ -125,6 +126,7 @@ class CtxBuilderV1(ContextBuilder):
         fil_anchors = list(set(anchors).intersection(set(fil_entities)))
         return fil_entities, fil_triples, fil_anchors, candidate_set
 
+    # for source sub-graphs to build context
     def _build_context_for_single_graph1(self, unmatch_entities, entities, triples, anchors, ctx_graph_size, part_idx):
         fil_entities, fil_triples, fil_anchors, all_candidates = self._filter_g1(triples, anchors, unmatch_entities, max_hop_k=1, part_idx=part_idx)
 
@@ -149,6 +151,7 @@ class CtxBuilderV1(ContextBuilder):
         print("end of building g1 ctx")
         return sel_entities
 
+    # generate neighborhood candidates 
     def _filter_g2(self, triples, anchors, unmatch_entities, max_hop_k, ignore_more=None):
         nei_list = self.get_neighbours2(triples, anchors, max_hop_k=max_hop_k)
         nei_ent_set = set()
@@ -196,6 +199,7 @@ class CtxBuilderV1(ContextBuilder):
         print("end of building g2 ctx")
         return sel_entities
 
+    # to acculturate the partitioning seeds using a cache
     def _cache_g2_ents(self):
         print("cache g2 ent perf")
         gpu_no = int(self.devices[0][-1])
@@ -272,6 +276,7 @@ class CtxBuilderV1(ContextBuilder):
         print("end of building g1 ctx")
         return sel_entities
 
+    # for target sub-graphs to build context
     def _build_context_for_neighbor_enhance_graph2(self, unmatch_entities, triples, anchors, sel_num, is_GPU=False):
         print("index {0}".format(17))
         if sel_num == 0:
@@ -347,6 +352,7 @@ class CtxBuilderV2(CtxBuilderV1):
         super().__init__(data, data_dir, kgids, out_dir, subtask_num, gcn_l, ctx_g1_size, ctx_g2_size, gamma=gamma, ctx_g2_conn_percent=ctx_g2_conn_percent, \
                          torch_devices=torch_devices, is_mulprocess=is_mulprocess, proc_n=proc_n)
 
+    # to acculturate the partitioning seeds using a cache
     def cache_g1_ent_effect(self):
         print("index {0}".format(7))
         print("cache g1 ent perf")

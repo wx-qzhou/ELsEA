@@ -15,7 +15,7 @@ nvidia_smi.nvmlInit()
 multiprocessing.get_context("spawn")
 sys.path.append(os.getcwd())
 
-
+# Value-Based Information-Passing (VBIP) 
 class EviPassingLayer(nn.Module):
     def __init__(self):
         super(EviPassingLayer, self).__init__()
@@ -38,7 +38,7 @@ class EviPassingLayer(nn.Module):
             del g, h
             return h_o
 
-
+"The following is the details of Value-Based Informativeness Evaluation (VBIE) Value-Based Information-Passing (VBIP)"
 class EviPassingModel(nn.Module):
     def __init__(self, layer_num):
         super(EviPassingModel, self).__init__()

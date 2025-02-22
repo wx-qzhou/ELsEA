@@ -74,6 +74,7 @@ def makeset(ent_list, num_perm):
             m.update(d.encode('utf-8'))
         yield m
 
+# using the minhash to select the entity pairs
 def minhash_select_pairs(e1: Iterable[MinHash], e2: Iterable[str],
                          begin_with=0, threshold=0.85, num_perm=128):
     lsh = MinHashLSH(threshold=threshold, num_perm=num_perm)
@@ -95,6 +96,7 @@ def minhash_select_pairs(e1: Iterable[MinHash], e2: Iterable[str],
     time.sleep(1)
     return pairs
 
+# using the faiss to select top-k pairs based on embeddings
 def faiss_search_impl(emb_q, emb_id, emb_size, shift, k=50, search_batch_sz=50000, gpu=True):
     index = faiss.IndexFlat(emb_size)
     if gpu:
@@ -112,6 +114,7 @@ def faiss_search_impl(emb_q, emb_id, emb_size, shift, k=50, search_batch_sz=5000
     vals, inds = torch.cat(vals), torch.cat(inds)
     return vals, inds
 
+# structural information
 @torch.no_grad()
 def global_level_semantic_sim(embs, k=50, search_batch_sz=50000, index_batch_sz=500000, split=False, norm=True, gpu=True):
     # embs: [[N, d], [M, d]]
@@ -135,6 +138,7 @@ def global_level_semantic_sim(embs, k=50, search_batch_sz=50000, index_batch_sz=
 
     return topk2spmat(vals, inds, size, 0, torch.device('cpu'), split), inds
 
+# string 
 def sparse_string_sim(ent1, ent2, batch_size=1000000, num_perm=128, threshold=0.85) -> Tensor:
     e1, e2 = remove_prefix_to_list(ent1, punc=PUNC), remove_prefix_to_list(ent2, punc=PUNC)
     len_all = len(e2)

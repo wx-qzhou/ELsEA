@@ -70,11 +70,13 @@ class LINE(nn.Module):
 
         return one_order_loss + two_order_loss
 
+# generate the negative samples
 def generate_negative_samples(num_nodes, num_samples):
     """生成负样本"""
     neg_dst = torch.randint(0, num_nodes, (num_samples,))
     return neg_dst
 
+# generate the graphs using nextworks
 def prepare_graph_data(G):
     """从 networkx 图 G 生成训练数据"""
     edges = list(G.edges())
@@ -82,6 +84,7 @@ def prepare_graph_data(G):
     pos_edges = [(torch.tensor(src), torch.tensor(dst)) for src, dst in edges]
     return pos_edges, num_nodes
 
+# train the Line model
 def train_line(G, embedding_dim, num_epochs, batch_size, num_samples=5):
     pos_edges, num_nodes = prepare_graph_data(G)
     
@@ -115,6 +118,7 @@ def train_line(G, embedding_dim, num_epochs, batch_size, num_samples=5):
     
     return model
 
+# obtain the embeddings of nodes
 def get_node_embeddings(model):
     """获取节点嵌入"""
     return model.node_embeddings.weight.data.numpy()

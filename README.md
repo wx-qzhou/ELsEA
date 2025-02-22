@@ -5,21 +5,18 @@ Implementation of the study proposed in the paper <a href="https://ieeexplore.ie
 
 First, set up the specified Conda environment and install the required dependencies from the 'Install_requirements' file.
 
-Then, activate the specified Conda environment, for example:
+Then, download the pre-trained models from the [Helsinki-NLP](https://huggingface.co/Helsinki-NLP) repository on Hugging Face into the directory ./DivEA/Unsuper/TranslatetoEN.
 
+Next, activate the specified Conda environment, for example:
 ```bash
 conda activate qzhou_LargerEA_py310
 ```
 
-Then, go to the `DivEA` directory and run the data preparation script:
-
+Finally, go to the `DivEA` directory and run the data preparation script:
 ```bash
 cd ../DivEA
 bash run_prepare_data.sh
 ```
-
-Finally, download the pre-trained models from the [Helsinki-NLP](https://huggingface.co/Helsinki-NLP) repository on Hugging Face into the directory ./DivEA/Unsuper/TranslatetoEN.
-
 
 # Parameters Explanation
 
@@ -112,7 +109,7 @@ python Small_DivEA_run_dbp15k.py --kgids --ea_model rrea --eval_way csls --subta
 
 ## Data Preparation
 
-Run the data preparation script for different datasets:
+Run the data preparation script for different datasets under seed-free :
 
 1. **dbp15k** dataset, evaluating `fr,en` knowledge graph:
 

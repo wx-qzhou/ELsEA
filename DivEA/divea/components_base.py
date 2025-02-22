@@ -319,6 +319,7 @@ class ContextBuilder(object):
     def _build_g2_context(self, part_idx):
         return []
 
+    # save the context supplements
     def _save_context(self, part_idx, g1_ctx_entities, g2_ctx_entities):
         part_data_dir = os.path.join(self.data_dir, f"partition_{part_idx}")
         with open(os.path.join(part_data_dir, "kg_partition.json")) as file:
@@ -330,6 +331,7 @@ class ContextBuilder(object):
         with open(os.path.join(part_data_dir, "kg_partition.json"), "w+") as file:
             file.write(json.dumps(obj))
 
+    # based on the given entities to generate the neighbors
     def get_neighbours2(self, triples, part_entities, max_hop_k):
         conn_arr = np.array(triples)[:, [0,2]]
         conn_df = pd.DataFrame(data=conn_arr, columns=["h", "t"]) # The head is (h, t), and the shape of it is (N, 2).
@@ -350,6 +352,7 @@ class ContextBuilder(object):
             ent_df = pd.Series(data=list(new_hop_entities)).to_frame("ent")
         return neighbours_list
 
+    # based on anchors to generate the neighbors
     def get_neighbours4(self, triples, part_entities, anchors, max_hop_k):
         if not hasattr(self, "conn_df"):
             conn_arr = np.array(triples)[:, [0,2]]
@@ -386,6 +389,7 @@ class ContextBuilder(object):
                 ent_df = pd.Series(data=list(new_hop_entities)).to_frame("ent")
         return real_added_nei_set
 
+    # generate anchors for target sub-graphs
     def get_linking_entities_from_anchor_to_unmatch(self, triples, anchors, unmatched_entities, max_hop_k):
         conn_arr = np.array(triples)[:, [0,2]]
         conn_arr = np.concatenate([conn_arr, conn_arr[:, [1,0]]], axis=0)
@@ -437,6 +441,7 @@ class G1Partitioner():
     def _divide_entities(self):
         return []
 
+    # partition the source graph
     def partition_g1_entities(self):
         part_entities_list = self._divide_entities()
         for idx in range(len(part_entities_list)):
@@ -529,6 +534,7 @@ class G2Partitioner():
         pseudo_seeds = list(set(pseudo_seeds))
         return pseudo_seeds
 
+    # obtain the anchors for the target graph
     def get_anchors2(self, part_idx):
         train_alignment = self.data.load_train_alignment()
         pseudo_alignment = self.load_pseudo_seeds()
@@ -593,6 +599,7 @@ class G2Partitioner():
         except Exception as ex:
             print(ex)
 
+    # partition the target graph
     def partition_g2_entities(self):
         print("index {0}".format(13))
         pool_size = min(cpu_count() // 2, 10, self.part_n - 1)
@@ -681,7 +688,7 @@ class Server:
         self.part_n = part_n
         self.kgids = kgids
         self.ctx_builder = ctx_builder
-
+    
     def communicate(self, ignore_ids):
         print("index {0}".format(37))
         all_pseudo_seeds = []

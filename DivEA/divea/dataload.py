@@ -146,6 +146,7 @@ class UniformData:
         del triples, linked_entities
         return linked_triples, entities, relations
 
+    # reset the ids of entities and relations
     def reset_IDs(self, kg1_triples, kg2_triples, kg1_entities, kg2_entities, kg1_relations, kg2_relations):
         # entity
         kg1_ent_uri_tuples = list(enumerate(kg1_entities))

@@ -80,8 +80,11 @@ if __name__ == "__main__":
 
     args.gpu_ids = ",".join(args.gpu_ids.split(",")[:torch.cuda.device_count()])
 
+    # load data
     data = UniformData(data_dir, kgids)
+    # generate the weighs of nodes and edges
     graph_metrics_main(data)
+    # load the corresponding weights
     data.load_weights()
 
     subtask_size = eval(args.subtask_size)
@@ -92,6 +95,7 @@ if __name__ == "__main__":
     ctx_g1_size = int(subtask_size * args.ctx_g1_percent)
     ctx_g2_size = subtask_size - ctx_g1_size
 
+    # create the context generators
     if args.ctx_builder == "v1":
         ctx_builder = CtxBuilderV1(data, data_dir, kgids, out_dir, args.subtask_num, args.layer_num, gamma=args.gamma, \
                                    ctx_g1_size=ctx_g1_size, ctx_g2_size=ctx_g2_size, ctx_g2_conn_percent=args.ctx_g2_conn_percent, \
@@ -102,7 +106,8 @@ if __name__ == "__main__":
                                    ctx_g1_size=ctx_g1_size, ctx_g2_size=ctx_g2_size, ctx_g2_conn_percent=args.ctx_g2_conn_percent, \
                                     torch_devices=[f"cuda:{didx}" for didx in range(len(args.gpu_ids.split(",")))], is_mulprocess=args.is_mulprocess, \
                                         proc_n=args.proc_n)
-        
+    
+    # create partitioners
     if args.div_g1 == "metis":
         g1_partitioner = DivG1Metis(data, data_dir, kgids, args.subtask_num, balance=False)
     elif args.div_g1 == "random":
@@ -111,14 +116,17 @@ if __name__ == "__main__":
         raise Exception("unknown g1 partition method")
 
 
+    # create the counterpart candidate generator
     count_discover = CounterpartDiscovery(data, data_dir, kgids, args.subtask_num, ctx_g2_size=ctx_g2_size,
                                         max_hop_k=2*args.layer_num, out_dir=out_dir, alpha=args.alpha,
                                         beta=args.beta, topK=args.topK, ablation=args.counterdisc_ablation
                                         )
 
+    # create a server to gather the information
     server = Server(data_dir, kgids, out_dir, args.subtask_num, g1_partitioner, count_discover, ctx_builder)
     clients = []
 
+    # the settings of each sub-task
     for part_idx in range(1, args.subtask_num+1):
         conf = Config()
         part_data_dir = os.path.join(data_dir, f"partition_{part_idx}")
@@ -149,6 +157,7 @@ if __name__ == "__main__":
         client = Client(part_data_dir, kgids, part_out_dir, ea_module)
         clients.append(client)
     
+    # a Parallel EA Framework for deal with the EA task.
     framework = ParallelEAFramework(server, clients, eval_way=args.eval_way, max_iteration=args.max_iteration)
     framework.run()
     print("Having done!")

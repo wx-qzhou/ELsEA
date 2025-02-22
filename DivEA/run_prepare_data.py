@@ -28,6 +28,7 @@ def get_parser():
 
     return args
 
+# generate the text of each entity
 def generate_txt(args, kgids, kgid, model_name=None, flag=True):
     ent_id2uri = read_tab_lines(os.path.join(args.data_dir, args.data_name, "_".join(kgids), kgid + "_entity_id2uri.txt"))
     if kgid == "zh":
@@ -88,7 +89,7 @@ if __name__ == "__main__":
                 args.index_batch_sz = 12000
             else:
                 args.index_batch_sz = 10000
-
+    # this is to divide the train and test sets
     uni_data.divide_train_test(args.train_percent, args.threshold, surface=args.surface, ugraph=args.ugraph, thresholdstr=args.thresholdstr, index_batch_sz=args.index_batch_sz)
 
 

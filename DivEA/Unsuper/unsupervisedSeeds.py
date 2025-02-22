@@ -163,6 +163,7 @@ def z_score(embed):
     gc.collect()
     return embed
 
+# obtain the pretrained seeds based on entity names
 def seedbyname(data_dir, kgids, threshold=0.8, ugraph=True):
     if ugraph:
         kg1_ent_id2uri_map, kg2_ent_id2uri_map = read_tab_lines(join(data_dir, kgids[0] + "_entity_id2uri.txt")), \
@@ -224,6 +225,7 @@ def get_indices_vals(M, threshold=0.5):
 
     return inds, vals
 
+# generate the pretrained seeds based on structural information
 def visual_pivot_induction_mini_batch(graph_features, left_idx, right_idx, data_dir=None, \
                                       kgids=None, surface=True, ugraph=True, search_batch_sz=50000, \
                                         index_batch_sz=500000, batchsize=10000, topk=2000, \
@@ -287,6 +289,7 @@ def visual_pivot_induction_mini_batch(graph_features, left_idx, right_idx, data_
 
     return inds, train_alignment
 
+# obtain the embeddings of nodes
 def obtain_embed(triples, ent_size, is_Unsuper=False, max_epoch=50):
     r2f, r2if = ht_func(triples)
 

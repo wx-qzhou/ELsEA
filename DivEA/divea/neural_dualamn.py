@@ -11,6 +11,7 @@ from divea.dataload import read_alignment
 from divea.dataload import convert_uniform_to_rrea
 from divea.components_base import NeuralEAModule
 
+# training process of Dual_AMN
 class Dual_AMNModule(NeuralEAModule):
     def __init__(self, conf: Config):
         super(Dual_AMNModule, self).__init__(conf)

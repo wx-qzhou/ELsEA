@@ -10,7 +10,7 @@ from divea.dataload import read_alignment
 from divea.dataload import convert_uniform_to_rrea
 from divea.components_base import NeuralEAModule
 
-
+# training process of GCNAlign
 class GCNAlignModule(NeuralEAModule):
     def __init__(self, conf: Config):
         super(GCNAlignModule, self).__init__(conf)
