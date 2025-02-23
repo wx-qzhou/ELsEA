@@ -39,8 +39,3 @@ pip install nvidia-ml-py3
 pip install tqdm==4.53.0
 pip install scipy==1.9.0
 
--i https://pypi.tuna.tsinghua.edu.cn/simple
-
-Has bug:
-https://cloud.tencent.com/developer/article/2139512
-https://cloud.baidu.com/article/3290026
