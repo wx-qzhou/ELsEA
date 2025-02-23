@@ -56,7 +56,7 @@ Set the subtask size based on different models and language pairs:
 
 ## `--kgids` Knowledge Graph IDs
 
-Different knowledge graph ID configurations:
+Different knowledge graph ID configurations, such as:
 
 - `en,de`
 - `en,fr`
