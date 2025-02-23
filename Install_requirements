@@ -1,4 +1,4 @@
-conda create --name qzhou_LargerEA_py310 -c conda-forge graph-tool python=3.10
+conda create --name qzhou_LargerEA_py310
 conda activate qzhou_LargerEA_py310
 conda install cudatoolkit=11.3
 
