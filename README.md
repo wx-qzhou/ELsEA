@@ -28,14 +28,6 @@ Available EA approaches:
 - dualamn
 - gcn-align
 
-## `--eval_way`  Similarity Measures
-
-Available similarity measures:
-
-- csls
-- cosine
-- sinkhorn
-
 ## `--subtask_size` Subtask Sizes
 
 Set the subtask size based on different models and language pairs:
