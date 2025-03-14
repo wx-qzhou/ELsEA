@@ -148,3 +148,10 @@ python calculate_acc.py --data_name dwy100k --kgids dbp,yg
 ```bash
 python calculate_acc.py --data_name 1m --kgids en,de
 ```
+
+## Citing
+Citing:
+1) https://github.com/uqbingliu/DivEA.  
+2) https://github.com/MaoXinn/RREA.
+3) https://github.com/1049451037/GCN-Align.
+4) https://github.com/ZJU-DAILY/DualMatch.
