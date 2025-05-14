@@ -155,3 +155,13 @@ Citing:
 2) https://github.com/MaoXinn/RREA.
 3) https://github.com/1049451037/GCN-Align.
 4) https://github.com/ZJU-DAILY/DualMatch.
+
+## Citation
+```bibtex
+@inproceedings{Zhou2025,
+  title={Enhancing Large-scale Entity Alignment with Critical Structure and High-quality Context},
+  author={Qian, Zhou and Wei, Chen and Li, Zhang and Pengpeng, Zhao and Jiajie, Xu and Lei, Zhao},
+  booktitle={ICDE},
+  year={2025}
+}
+
