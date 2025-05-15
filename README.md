@@ -1,5 +1,5 @@
 # ELsEA
-Implementation of the study proposed in the paper <a href="[https://ieeexplore.ieee.org/](https://csdl-downloads.ieeecomputer.org/proceedings/icde/2025/3603/00/360300c227.pdf?Expires=1747296151&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jc2RsLWRvd25sb2Fkcy5pZWVlY29tcHV0ZXIub3JnL3Byb2NlZWRpbmdzL2ljZGUvMjAyNS8zNjAzLzAwLzM2MDMwMGMyMjcucGRmIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzQ3Mjk2MTUxfX19XX0_&Signature=pNlAKKKP48hFiTpwl3cSiBeDe86O9sKyLCdBhj9e4wDlzHChZQ6S-Q7nupSTPJu5J9fdqNDiJGhPsJjxmEd0hsO7Ql-83ta0rLE4uRSxqLTHeir4WJULpjWbgt6Nj8ORGq3Lbce8M~4oEycXHlJYtuv9PLszL8b-grAaPQmh9JoCYMuUC5k8T1vGiazq5qrPG7pCFUZldoyydj2CHjs5rANunZ9H9ggX3srh1MzCKyW2FXsZIJXmeYHpapjFobcMs4uZkTp47TblzBaBs7Cft4Hz9HW5OZBcmzN3gpn8z8B7eBP6WNLIHwr8HRFKE9AU31C8pPai9jlJkJh3ZrEisg__&Key-Pair-Id=K12PMWTCQBDMDT)">Enhancing Large-scale Entity Alignment with Critical Structure and High-quality Context</a>
+Implementation of the study proposed in the paper <a href="https://www.computer.org/csdl/proceedings-article/icde/2025/360300c227/26FZAKCH0Os">Enhancing Large-scale Entity Alignment with Critical Structure and High-quality Context</a>
 
 # Environment Setup and Data Preparation
 
